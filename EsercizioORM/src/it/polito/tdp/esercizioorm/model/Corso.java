@@ -1,13 +1,19 @@
 package it.polito.tdp.esercizioorm.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Corso {
 
 	private String codIns;
 	private int crediti;
 	private String nome;
 	private int pd;
+	
+	private List<Studente> studenti;
 
 	public Corso() {
+		studenti = new ArrayList<Studente>();
 	}
 
 	public Corso(String codIns, int crediti, String nome, int pd) {
@@ -15,7 +21,16 @@ public class Corso {
 		this.crediti = crediti;
 		this.nome = nome;
 		this.pd = pd;
+		studenti = new ArrayList<Studente>();
 	}
+	
+	public List<Studente> getStudenti() {
+		return studenti;
+	}
+
+	public void setStudenti(List<Studente> studenti) {
+		this.studenti = studenti;
+}
 
 	public String getCodIns() {
 		return codIns;

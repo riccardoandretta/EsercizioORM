@@ -8,11 +8,11 @@ public class TestDAO {
 	public static void main(String[] args) {
 		
 		CorsoDAO cdao = new CorsoDAO();
-		for (Corso c : cdao.getTuttiCorsi())
+		for (Corso c : cdao.getTuttiCorsi(null))
 			System.out.println(c);
 		
 		StudenteDAO sdao = new StudenteDAO();
-		for (Studente s : sdao.getTuttiStudenti()) 
+		for (Studente s : sdao.getTuttiStudenti(null)) 
 			System.out.println(s);
 	}
 }
