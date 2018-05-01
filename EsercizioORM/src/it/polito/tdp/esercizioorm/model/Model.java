@@ -30,9 +30,7 @@ public class Model {
 
 		// Quando creo i corsi li vado già ad inserire nella mappa
 		corsi = cdao.getTuttiCorsi(corsomap); // Questo è un trucco che mi assicura di non creare oggetti duplicati
-		studenti = sdao.getTuttiStudenti(studentemap); // Dovrei fare lo stesso per studenti, ma in questo caso non
-														// faccio
-		// operazioni sugli studenti quindi non mi serve
+		studenti = sdao.getTuttiStudenti(studentemap); // Dovrei fare lo stesso per studenti (ora mi serve)
 
 		for (Studente s : studenti) {
 			cdao.getCorsiFromStudente(s, corsomap);
@@ -57,7 +55,7 @@ public class Model {
 		Studente s = studentemap.get(matricola);
 
 		if (s == null) {
-			return new ArrayList<Corso>();
+			return new ArrayList<Corso>(); // Ritorno una lista vuota, meglio che ritornare null!
 		}
 
 		return s.getCorsi();
@@ -83,20 +81,22 @@ public class Model {
 
 		Studente studente = studentemap.get(matricola);
 		Corso corso = corsomap.get(codins);
-
+		
+		//Importante fare il controllo
 		if (studente == null || corso == null) {
 			// non posso iscrivere uno studente ad un corso
 			return false;
 		}
 
-		// Aggiorno il DB
-		boolean result = sdao.iscriviStudenteACorso(studente, corso);
+		// Aggiorno il DB (faccio prima il db perchè in caso di errori di accesso avrei poi
+		// problemi di compatibilità)
+		boolean result = sdao.iscriviStudenteACorso(studente, corso); // meglio passare gli oggetti completi perchè il
+																		// model non sa cosa deve farne il dao
 
-		if (result) {
-			// aggiornamento db effettuato con successo
+		if (result) { // aggiornamento db effettuato con successo
 
 			// Aggiorno i riferimenti in memoria
-			if (!studente.getCorsi().contains(corso)) {
+			if (!studente.getCorsi().contains(corso)) { // NON inserisco duplicati
 				studente.getCorsi().add(corso);
 			}
 			if (!corso.getStudenti().contains(studente)) {

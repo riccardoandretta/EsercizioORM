@@ -54,7 +54,7 @@ public class StudenteDAO {
 			while (res.next()) {
 				Studente s = new Studente(res.getInt("matricola"), res.getString("nome"), res.getString("cognome"),
 						res.getString("cds"));
-				c.getStudenti().add(studentemap.get(s));
+				c.getStudenti().add(studentemap.get(s)); // aggiungo alla lista di studenti di quel corso (se non c'è già)
 			}
 
 			conn.close();
